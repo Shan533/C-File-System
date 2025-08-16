@@ -1,0 +1,18 @@
+create bigfile
+append bigfile aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+stat bigfile
+append bigfile bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+stat bigfile
+cat bigfile
+tail bigfile 10
+tail bigfile 200
+create smallfile
+append smallfile x
+append smallfile y
+append smallfile z
+cat smallfile
+tail smallfile 2
+rm bigfile
+rm smallfile
+ls
+quit

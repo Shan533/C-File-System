@@ -1,0 +1,7 @@
+mkdir testdir
+cd testdir
+create testfile
+append testfile testdata
+ls
+cat testfile
+quit

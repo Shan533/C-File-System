@@ -1,0 +1,9 @@
+create ab
+ls
+append ab aacb
+cat ab
+tail ab 2
+create empty
+cat empty
+tail empty 5
+quit

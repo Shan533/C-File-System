@@ -1,0 +1,6 @@
+ls
+cd testdir
+ls
+cat testfile
+stat testfile
+quit

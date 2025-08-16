@@ -1,0 +1,7 @@
+mkdir persistent_dir
+cd persistent_dir
+create persistent_file
+append persistent_file persistent_data
+ls
+cat persistent_file
+quit

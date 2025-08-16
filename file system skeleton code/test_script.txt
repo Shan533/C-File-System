@@ -1,0 +1,32 @@
+ls
+mkdir testdir
+ls
+cd testdir
+ls
+create testfile
+ls
+stat testfile
+append testfile "Hello World!"
+cat testfile
+stat testfile
+append testfile " This is more data."
+cat testfile
+stat testfile
+tail testfile 5
+create another_file
+append another_file "Short file content"
+ls
+stat another_file
+cat another_file
+home
+ls
+stat testdir
+cd testdir
+rm testfile
+ls
+rm another_file
+ls
+home
+rmdir testdir
+ls
+quit

@@ -1,0 +1,32 @@
+ls
+mkdir testdir
+ls
+cd testdir
+ls
+create testfile
+ls
+stat testfile
+append testfile Hello
+cat testfile
+stat testfile
+append testfile World
+cat testfile
+stat testfile
+tail testfile 5
+create file2
+append file2 Short
+ls
+stat file2
+cat file2
+home
+ls
+stat testdir
+cd testdir
+rm testfile
+ls
+rm file2
+ls
+home
+rmdir testdir
+ls
+quit

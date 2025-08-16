@@ -1,0 +1,33 @@
+ls
+mkdir verylongname
+mkdir short
+ls
+cd nonexistent
+cd short
+ls
+create verylongfilename
+create file1
+create file1
+ls
+append nonexistent data
+append file1 data
+cat file1
+cat short
+rm nonexistent
+rm short
+rmdir short
+home
+mkdir short
+cd short
+create file1
+home
+rmdir short
+cd short
+rm file1
+home
+rmdir short
+ls
+stat nonexistent
+tail nonexistent 5
+tail file1 10
+quit
