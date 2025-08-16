@@ -1,6 +1,6 @@
 # C++ File System Implementation
 
-A complete implementation of a simple, Unix-like file system on a simulated disk for CS5600 Computing Systems course.
+A complete implementation of a simple, Unix-like file system on a simulated disk.
 
 ## 🚀 Features
 
@@ -49,7 +49,7 @@ Shell (CLI) → FileSys (Commands) → BasicFileSys (Low-level) → Disk (Storag
 
 - **Compiler**: C++ compatible compiler (g++, clang++)
 - **Make**: GNU Make
-- **Platform**: Linux/Unix (tested on Khoury Linux machines)
+- **Platform**: Linux/Unix
 
 ## 🚀 Quick Start
 
@@ -131,92 +131,3 @@ The project includes comprehensive test scripts:
 # Run edge case test
 ./filesys -s test_edge_cases.txt
 ```
-
-## 📁 Project Structure
-
-```
-C++ File System/
-├── README.md                           # This file
-├── .gitignore                          # Git ignore patterns
-├── .cursor/                            # Cursor IDE configuration
-│   ├── plan.mdc                        # Implementation plan
-│   └── rules/                          # Project documentation
-│       ├── design_doc.mdc              # Design document
-│       └── file_structure.mdc          # File structure analysis
-├── file system skeleton code/          # Main project source
-│   ├── Source Files/                   # C++ source code
-│   ├── Build Artifacts/                # Compiled objects and executables
-│   ├── Test Files/                     # Test scripts and data
-│   └── Data/                           # Virtual disk file
-└── docs/                               # Additional documentation
-```
-
-## 🔧 Implementation Details
-
-### **File System Limits**
-- **Maximum filename length**: 9 characters
-- **Maximum file size**: 251 bytes (limited by MAX_DATA_BLOCKS)
-- **Maximum directory entries**: 10 files per directory
-- **Maximum data blocks per file**: 2 blocks
-
-### **Error Messages**
-All required error messages are implemented exactly as specified:
-- "File is not a directory"
-- "File is a directory"
-- "File exists"
-- "File does not exist"
-- "File name is too long"
-- "Disk is full"
-- "Directory is full"
-- "Directory is not empty"
-- "Append exceeds maximum file size"
-
-## 🚧 Future Enhancements
-
-### **Phase 1: Core Improvements**
-- [ ] Path support (relative and absolute paths)
-- [ ] Extended file operations (`cp`, `mv`, `find`)
-- [ ] Recursive directory operations (`rm -r`, `cp -r`)
-
-### **Phase 2: Advanced Features**
-- [ ] File metadata (timestamps, permissions)
-- [ ] Performance optimizations
-- [ ] Data integrity features
-
-### **Phase 3: Enterprise Features**
-- [ ] Multi-user support
-- [ ] Advanced file systems
-- [ ] Monitoring and analytics
-
-## 🤝 Contributing
-
-This is a course project, but suggestions and improvements are welcome! Please feel free to:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## 📚 Documentation
-
-- **Design Document**: [`.cursor/rules/design_doc.mdc`](.cursor/rules/design_doc.mdc)
-- **File Structure Analysis**: [`.cursor/rules/file_structure.mdc`](.cursor/rules/file_structure.mdc)
-- **Implementation Plan**: [`.cursor/plan.mdc`](.cursor/plan.mdc)
-
-## 📄 License
-
-This project is part of the CS5600 Computing Systems course at Northeastern University.
-
-## 👨‍💻 Author
-
-**Shanshan Wu** - CS5600 Computing Systems Student
-
-## 🙏 Acknowledgments
-
-- Course instructors and teaching assistants
-- Northeastern University Khoury College of Computer Sciences
-- CS5600 Computing Systems course materials
-
----
-
-**Note**: This implementation successfully meets all project requirements and has been thoroughly tested. The file system provides a solid foundation for learning about file system design and implementation principles.
