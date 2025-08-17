@@ -113,6 +113,45 @@ bool Shell::execute_command(string command_str)
   else if (command.name == "stat") {
     filesys.stat(command.file_name.c_str());
   }
+  else if (command.name == "pwd") {
+    filesys.pwd();
+  }
+  else if (command.name == "df") {
+    filesys.df();
+  }
+  else if (command.name == "head") {
+    errno = 0;
+    unsigned long n = strtoul(command.append_data.c_str(), NULL, 0);
+    if (0 == errno) {
+      filesys.head(command.file_name.c_str(), n);
+    } else {
+      cerr << "Invalid command line: " << command.append_data;
+      cerr << " is not a valid number of bytes" << endl;
+      return false;
+    }
+  }
+  else if (command.name == "wc") {
+    filesys.wc(command.file_name.c_str());
+  }
+  else if (command.name == "cp") {
+    filesys.cp(command.file_name.c_str(), command.append_data.c_str());
+  }
+  else if (command.name == "mv") {
+    filesys.mv(command.file_name.c_str(), command.append_data.c_str());
+  }
+  else if (command.name == "find") {
+    filesys.find(command.file_name.c_str());
+  }
+  else if (command.name == "tree") {
+    filesys.tree();
+  }
+  else if (command.name == "help") {
+    if (command.file_name.empty()) {
+      filesys.help();
+    } else {
+      filesys.help(command.file_name.c_str());
+    }
+  }
   else if (command.name == "quit") {
     return true;
   }
@@ -131,15 +170,42 @@ Shell::Command Shell::parse_command(string command_str)
   struct Command command;
   istringstream ss(command_str);
   int num_tokens = 0;
+  
   if (ss >> command.name) {
     num_tokens++;
     if (ss >> command.file_name) {
       num_tokens++;
-      if (ss >> command.append_data) {
-        num_tokens++;
-        string junk;
-        if (ss >> junk) {
+      
+      // For append command, handle quoted strings
+      if (command.name == "append") {
+        // Get the rest of the line for append data
+        string rest_of_line;
+        getline(ss, rest_of_line);
+        
+        // Trim leading whitespace
+        size_t start = rest_of_line.find_first_not_of(" \t");
+        if (start != string::npos) {
+          rest_of_line = rest_of_line.substr(start);
+          
+          // Check if it's quoted
+          if (rest_of_line.length() >= 2 && rest_of_line[0] == '"' && rest_of_line.back() == '"') {
+            // Remove quotes
+            command.append_data = rest_of_line.substr(1, rest_of_line.length() - 2);
+            num_tokens++;
+          } else if (!rest_of_line.empty()) {
+            // Not quoted, use as is
+            command.append_data = rest_of_line;
+            num_tokens++;
+          }
+        }
+      } else {
+        // For other commands, use normal parsing
+        if (ss >> command.append_data) {
           num_tokens++;
+          string junk;
+          if (ss >> junk) {
+            num_tokens++;
+          }
         }
       }
     }
@@ -153,9 +219,13 @@ Shell::Command Shell::parse_command(string command_str)
   // Check for invalid command lines
   if (command.name == "ls" ||
       command.name == "home" ||
+      command.name == "pwd" ||
+      command.name == "df" ||
+      command.name == "tree" ||
+      command.name == "help" ||
       command.name == "quit")
   {
-    if (num_tokens != 1) {
+    if (num_tokens != 1 && !(command.name == "help" && num_tokens == 2)) {
       cerr << "Invalid command line: " << command.name;
       cerr << " has improper number of arguments" << endl;
       return empty;
@@ -167,7 +237,9 @@ Shell::Command Shell::parse_command(string command_str)
       command.name == "create"||
       command.name == "cat"   ||
       command.name == "rm"    ||
-      command.name == "stat")
+      command.name == "stat"  ||
+      command.name == "wc"    ||
+      command.name == "find")
   {
     if (num_tokens != 2) {
       cerr << "Invalid command line: " << command.name;
@@ -175,7 +247,11 @@ Shell::Command Shell::parse_command(string command_str)
       return empty;
     }
   }
-  else if (command.name == "append" || command.name == "tail")
+  else if (command.name == "append" || 
+           command.name == "tail" ||
+           command.name == "head" ||
+           command.name == "cp" ||
+           command.name == "mv")
   {
     if (num_tokens != 3) {
       cerr << "Invalid command line: " << command.name;

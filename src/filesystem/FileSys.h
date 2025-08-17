@@ -4,7 +4,10 @@
 #ifndef FILESYS_H
 #define FILESYS_H
 
+#include <string>
 #include "BasicFileSys.h"
+
+using namespace std;
 
 class FileSys {
   
@@ -48,14 +51,45 @@ class FileSys {
     // display stats about file or directory
     void stat(const char *name);
 
+    // print working directory
+    void pwd();
+
+    // show disk free space
+    void df();
+
+    // show first N bytes of file
+    void head(const char *name, unsigned int n);
+
+    // show word count (lines, words, bytes)
+    void wc(const char *name);
+
+    // copy file
+    void cp(const char *src, const char *dest);
+
+    // move/rename file
+    void mv(const char *src, const char *dest);
+
+    // find files/directories by name
+    void find(const char *name);
+
+    // display directory tree
+    void tree();
+
+    // show help information
+    void help();
+    void help(const char *command);
+
   private:
     BasicFileSys bfs;	// basic file system
     short curr_dir;	// current directory
+    string current_path;  // track current directory path
 
     // Helper functions
     int find_file(const char *name, short &block_num);
     bool is_directory(short block_num);
     bool is_file(short block_num);
+    void find_recursive(const char *name, short dir_block, const string& path);
+    void tree_recursive(short dir_block, const string& prefix, bool is_last);
 };
 
 #endif 
